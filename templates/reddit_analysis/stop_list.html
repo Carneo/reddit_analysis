@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <!-- <html class="no-js"> --> <!--<![endif]-->
+     <head>
+        <meta charset="utf-8">
+
+        <title>redditAnalysis</title>
+
+        <meta name="description" content="FreshUI is a Premium Web App and Admin Template created by pixelcave and published on Themeforest.">
+        <meta name="author" content="pixelcave">
+        <meta name="robots" content="noindex, nofollow">
+
+        <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0">
+
+        <!-- Icons -->
+        <!-- The following icons can be replaced with your own, they are used by desktop and mobile browsers -->
+        <link rel="{{ STATIC_URL }}shortcut icon" href="img/favicon.ico">
+        <link rel="{{ STATIC_URL }}apple-touch-icon" href="img/icon57.png" sizes="57x57">
+        <link rel="{{ STATIC_URL }}apple-touch-icon" href="img/icon72.png" sizes="72x72">
+        <link rel="{{ STATIC_URL }}apple-touch-icon" href="img/icon76.png" sizes="76x76">
+        <link rel="{{ STATIC_URL }}apple-touch-icon" href="img/icon114.png" sizes="114x114">
+        <link rel="{{ STATIC_URL }}apple-touch-icon" href="img/icon120.png" sizes="120x120">
+        <link rel="{{ STATIC_URL }}apple-touch-icon" href="img/icon144.png" sizes="144x144">
+        <link rel="{{ STATIC_URL }}apple-touch-icon" href="img/icon152.png" sizes="152x152">
+        <!-- END Icons -->
+
+        <!-- Stylesheets -->
+        <!-- Bootstrap is included in its original form, unaltered -->
+        <link rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap.css">
+
+        <!-- Related styles of various icon packs and javascript plugins -->
+        <link rel="stylesheet" href="{{ STATIC_URL }}css/plugins.css">
+
+        <!-- The main stylesheet of this template. All Bootstrap overwrites are defined in here -->
+        <link rel="stylesheet" href="{{ STATIC_URL }}css/main.css">
+
+        <!-- Include a specific file here from css/themes/ folder to alter the default theme of the template -->
+
+        <!-- The themes stylesheet of this template (for using specific theme color in individual elements - must included last) -->
+        <link rel="stylesheet" href="{{ STATIC_URL }}css/themes/.css">
+        <!-- END Stylesheets -->
+        <script src="{{ STATIC_URL }}js/vendor/modernizr-2.7.1-respond-1.4.2.min.js"></script>
+    </head>
+    <!-- In the PHP version you can set the following options from the config file -->
+    <!--
+        Add one of the following classes to the body element for the desirable feature:
+        'sidebar-left-pinned'                         for a left pinned sidebar (always visible > 1200px)
+        'sidebar-right-pinned'                        for a right pinned sidebar (always visible > 1200px)
+        'sidebar-left-pinned sidebar-right-pinned'    for both sidebars pinned (always visible > 1200px)
+    -->
+    <body class="header-fixed-top">
+        <div id="page-container">
+  
+            <header class="navbar navbar-default navbar-fixed-top">
+               <header class="navbar navbar-fixed-top">
+            <ul class="nav header-nav pull-right">
+                    <li>
+                        <a href="/">
+                            <i class="gi gi-home"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/info">
+                            <i class="gi gi-circle_info"></i>
+                        </a>
+                    </li>
+                </ul>
+        </header>
+            </header>
+         
+            <div id="fx-container" class="fx-opacity">
+                <!-- Page content -->
+                <div id="page-content" class="block">
+                    <!-- FAQ Header -->
+                    <div class="block-header">
+                        <!-- If you do not want a link in the header, instead of .header-title-link you can use a div with the class .header-section -->
+                        <a href="" class="header-title-link">
+                            <h1>
+                                <i class="fa fa-info-circle animation-expandUp"></i>redditAnalysis
+                            </h1>
+                        </a>
+                    </div>
+                  
+                    <!-- END FAQ Header -->
+
+                    <!-- Intro Block -->
+                    <div class="block">
+                        <!-- Intro Title -->
+                        <div class="block-title">
+                            <h2><i class="fa fa-location-arrow"></i> Stop List</h2>
+                        </div>
+                        <!-- END Intro Title -->
+
+                        <!-- Intro Content -->
+                        <div id="lang" class="panel-group">
+
+
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title"><i class="fa fa-circle text-primary"></i> <a class="accordion-toggle" data-toggle="collapse" data-parent="#lang" href="#lang_english">english</a></h4>
+                                </div>
+                                <div id="lang_english" class="panel-collapse collapse in">
+                                    <div class="panel-body">
+                                       {% if english_list %}
+                                            {% for word in english_list %}
+                                               <br>{{ word }}
+                                            {% endfor %}
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                            {% if rest %}
+                                {% for lang, words in rest.items %}
+                                    {% if lang != 'english' %}
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title"><i class="fa fa-circle text-primary"></i> <a class="accordion-toggle" data-toggle="collapse" data-parent="#lang" href="#lang_{{ lang }}">{{ lang }}</a></h4>
+                                            </div>
+                                            <div id="lang_{{ lang }}"  class="panel-collapse collapse">
+                                                <div class="panel-body">
+                                                    {% for word in words %}
+                                                        <br> {{ word }}
+                                                    {% endfor %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                        <!-- END Intro Content -->
+                    </div>
+                    <!-- END Intro Block -->
+                </div>
+                <!-- END Page Content -->
+
+                <!-- Footer -->
+                <footer class="clearfix">
+                   <div class="pull-left">
+                            <i class="gi gi-embed_close"></i> Created by <a href="http://www.reddit.com/user/vicstudent">/u/vicstudent</a>
+                        </div>
+                        <div class="pull-right">
+                            <span id="year-copy"></span> &copy; <a href="http://goo.gl/CJE2tn" target="_blank">FreshUI 2.0</a>
+                    </div>
+                </footer>
+                <!-- END Footer -->
+            </div>
+            <!-- END FX Container -->
+        </div>
+        <!-- END Page Container -->
+
+        <!-- Scroll to top link, check main.js - scrollToTop() -->
+        <a href="javascript:void(0)" id="to-top"><i class="fa fa-angle-up"></i></a>
+
+        <!-- Include Jquery library from Google's CDN but if something goes wrong get Jquery from local file (Remove 'http:' if you have SSL) -->
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script>!window.jQuery && document.write(decodeURI('%3Cscript src="js/vendor/jquery-1.11.1.min.js"%3E%3C/script%3E'));</script>
+
+        <!-- Bootstrap.js, Jquery plugins and custom Javascript code -->
+        <script src="{{ STATIC_URL }}js/vendor/bootstrap.min.js"></script>
+        <script src="{{ STATIC_URL }}js/plugins.js"></script>
+        <script src="{{ STATIC_URL }}js/main.js"></script>
+    </body>
+</html>

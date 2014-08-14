@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html>
+     <head>
+        <meta charset="utf-8">
+
+        <title>redditAnalysis</title>
+
+        <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0">
+        <link rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap.css">
+        <link rel="stylesheet" href="{{ STATIC_URL }}css/plugins.css">
+        <link rel="stylesheet" href="{{ STATIC_URL }}css/main.css">
+       
+        <script src="{{ STATIC_URL }}js/vendor/modernizr-2.7.1-respond-1.4.2.min.js"></script>
+
+        
+    </head>
+    <body class="header-fixed-top">
+        <div id="page-container">
+            <header class="navbar navbar-default navbar-fixed-top">
+                <ul class="nav header-nav pull-right">
+                        <li>
+                            <a href="/">
+                                <i class="gi gi-home"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/info">
+                                <i class="gi gi-circle_info"></i>
+                            </a>
+                        </li>
+                    </ul>
+            </header>
+            <div id="fx-container" class="fx-opacity">
+                <div id="page-content" class="block">
+                    <div class="block-header">
+                        <div class="row remove-margin">
+                            <div class="col-md-4">
+                                <a href="http://www.reddit.com/user/{{ user.username }}" target="_blank" class="header-title-link">
+                                    <h1><i class="fa fa"></i>{{ user.username }}<small><br>Times Analyzed: {{ user.count }}<br>Comments: {{ comment_count }}<br>Submissions: {{ post_count }}<br>Total Karma: {{ karma }}</small></h1>
+                                </a>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="row">
+                                            <div class="col-xs-6">
+                                                <a href="javascript:void(0)" class="header-link">
+                                                    <h1 class="animation-pullDown">
+                                                        <strong>{{ acc_created }}</strong><br><small>Account Created</small>
+                                                    </h1>
+                                                </a>
+                                            </div>
+                                            <div class="col-xs-6">
+                                                <a href="{{ worst }}" target="_blank" class="header-link">
+                                                    <h1 class="animation-pullDown">
+                                                        <strong>{{ karma_worst }}</strong><br><small>Worst Comment</small>
+                                                    </h1>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="row">
+                                            <div class="col-xs-6">
+                                                <a href="{{ best }}" class="header-link" target="_blank">
+                                                    <h1 class="animation-pullDown">
+                                                        <strong>{{ karma_best }}</strong><br><small>Best Comment</small>
+                                                    </h1>
+                                                </a>
+                                            </div>
+                                            <div class="col-xs-6">
+                                                <a href="{{ first_comment }}" class="header-link" target="_blank">
+                                                    <h1 class="animation-pullDown">
+                                                        <strong>{{ date }}</strong><br><small>Earliest Comment</small>
+                                                    </h1>
+                                                </a>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row gutter30">
+                        <div class="col-md-6">
+                            <div class="block chart">
+                                <div class="block-title">
+                                    <div class="block-options pull-right">
+                                        <div class="btn-group btn-group-sm">
+                                            <a href="javascript:void(0)" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Subreddit Filter <span class="caret"></span></a>
+                                            <!-- <li class="divider"></li> -->
+                                            <ul class="dropdown-menu dropdown-menu-right scrollable-menu">
+                                                 <li class="active"><a href="javascript:void(0)"><i class="fa fa-check"></i> Subreddit Filter</a></li>
+                                                {% if subreddits %}
+                                                {% for s in subreddits %}
+                                                    <li> <a id="{{ s }}_button">{{ s }}</a></li>
+                                                {% endfor %}
+                                                {% endif %}
+                                            </ul>
+                                        </div>
+                                        <div class="btn-group btn-group-sm">
+                                            <a href="javascript:void(0)" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Options <span class="caret"></span></a>
+                                            <ul class="dropdown-menu dropdown-menu-right">
+                                                <li class="active"><a href="javascript:void(0)"><i class="fa fa-check"></i> Size Options</a></li>
+                                                <li class="divider"></li>
+                                                <li><a id="in_button" title="The graph starts to squish ~50 words, it will still display them, but not on the Y-axis, you have to hover. ">Increase size</a></li>
+                                                <li> <a id="reset_button">Reset chart</a></li>
+                                            </ul>
+                                        </div>
+                                        
+                                    </div>
+                                    <h2></i> Top Words</h2>
+                                </div>
+                                <div id="top_chart"></div>
+                               
+                            </div>
+                            <div class="block full">
+                                <div class="block-title">
+                                    <div class="block-options pull-right">
+                                        <div class="btn-group btn-group-sm">
+                                            <a href="javascript:void(0)" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Subreddit Recommendations <span class="caret"></span></a>
+                                            <ul class="dropdown-menu dropdown-menu-right scrollable-menu">
+                                                <li class="active"><a href="javascript:void(0)"><i class="fa fa-check"></i> Subreddit Recommendations</a></li>
+                                                <li class="divider"></li>
+                                                {% if sub_rec %}
+                                                {% for s in sub_rec %}
+                                                    <li><a href="http://www.reddit.com/r/{{ s }}" target="_blank">/r/{{ s }}</a></li>
+                                                {% endfor %}
+                                                {% endif %}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <h2></i> Subbreddit Activity</h2>
+                                </div>
+                                <div id='sub_activity'></div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="block">
+                                <div class="block-title">
+                                    <h2 class="text-center"></i> Comment Data </h2>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <p class="well well-sm"><strong><a title="Total word count out of all comments"> Word Count: </strong></a> {{ word_count|safe }}</p>
+                                        <p class="well well-sm"><strong><a title="Total amount of unique words amongst all comments"> Unique Words: </a></strong> {{ unique_words|safe }}</p>
+                                        <p class="well well-sm"><strong><a title="Average length of a comment"> Average Comment Length: </a></strong> {{ comment_length|safe }} words</p>
+                                        <p class="well well-sm"><strong><a title="Comment karma"> Comment Karma: </strong></a> {{ comment_karma|safe }}</p>
+                    <p class="well well-sm"><strong><a title="Average karma per comment"> Average Karma Per Comment: </a></strong> {{ karma_p|safe }}</p>
+                                        <p class="well well-sm"><strong><a title="Percentage of comments edited"> Edited Comments: </a></strong> {{ edited|safe }}% edited</p>
+                                        <p class="well well-sm"><strong><a href="/stop_list" target="_blank" title="Total amount of words ignored for top words chart. Click to view stop list.">Stop Count: </strong></a> {{ stop_count|safe }}</p>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div id='lang'></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="block">
+                                <div class="block-title">
+                                    <h2 class="text-center"></i> Submission Data </h2>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <p class="well well-sm"><strong><a title="Comment karma"> Submission Karma: </strong></a> {{ submission_karma|safe }}</p>
+                                        <p class="well well-sm"><strong><a title="Total word count out of all comments"> Average Karma Per Post: </strong></a> {{ karma_p_p|safe }}</p>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div id='post_types'></div>
+                                     </div>
+                                </div> 
+
+                            </div> 
+
+                            <div class="block">
+                                <div class="block-title">
+                                    <div class="block-options pull-right">
+                                        <div class="btn-group btn-group-sm">
+                                            <a href="javascript:void(0)" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Year <span class="caret"></span></a>
+                                            <!-- <li class="divider"></li> -->
+                                            <ul class="dropdown-menu dropdown-menu-right scrollable-menu">
+                                                 <li class="active"><a href="javascript:void(0)"><i class="fa fa-check"></i> Year</a></li>
+                                                {% if years %}
+                                                {% for y in years %}
+                                                    <li> <a id="{{ y }}_button">{{ y }}</a></li>
+                                                {% endfor %}
+                                                {% endif %}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <h2 class="text-center"></i> Posting Activity</h2>
+                                </div>
+                                <div id='yearly_activity'></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <footer class="clearfix">
+                   <div class="pull-left">
+                            <i class="gi gi-embed_close"></i> Created by <a href="http://www.reddit.com/user/vicstudent">/u/vicstudent</a>
+                        </div>
+                        <div class="pull-right">
+                            <span id="year-copy"></span> &copy; <a href="http://goo.gl/CJE2tn" target="_blank">FreshUI 2.0</a>
+                    </div>
+                </footer>
+            </div>
+            <!-- END FX Container -->
+        </div>
+        <!-- END Page Container -->
+
+        <!-- Scroll to top link, check main.js - scrollToTop() -->
+        <a href="javascript:void(0)" id="to-top"><i class="fa fa-angle-up"></i></a>
+
+        <!-- Include Jquery library from Google's CDN but if something goes wrong get Jquery from local file (Remove 'http:' if you have SSL) -->
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script src="{{ STATIC_URL }}js/vendor/bootstrap.min.js"></script>
+       
+        <!-- CHARTS --> 
+        <script type="text/javascript">
+            function top_words(target, categories, data, subreddits){
+
+                // Return size of an object. 
+                Object.size = function(obj) {
+                    var size = 0, key;
+                    for (key in obj) {
+                        if (obj.hasOwnProperty(key)) size++;
+                    }
+                    return size;
+                }
+
+                var seriesOptions = JSON.parse(data);
+                var categories = JSON.parse(categories);
+
+
+                // duplicate original for reference.
+                var org_series = jQuery.extend(true, {}, seriesOptions);
+                var org_categories = jQuery.extend(true, {}, categories);
+
+                var size = 10;
+                var max = Object.size(org_categories);
+
+                categories = categories.slice(0, 10);
+                seriesOptions[0]['data'] = seriesOptions[0]['data'].slice(0,10);
+                
+                // default data for reset button 
+                var default_series = jQuery.extend(true, {}, seriesOptions);
+                var default_categories = jQuery.extend(true, {}, categories);
+
+                $(target).highcharts({
+                    chart: {
+                        type: 'bar',
+                        height: 525
+                    },
+                    title: {
+                        text: 'All comments (Size: ' + ' ' + size + ')'
+                    },
+                    xAxis: {
+                        title: {
+                            text: null
+                        },
+                        categories: categories
+                    },
+                    yAxis: {
+                        title: {
+                        text: 'Occurence'
+                        }
+                    },
+                    credits: {
+                        enabled: false
+                    },
+                    exporting: {
+                    enabled: true 
+                    },
+                    plotOptions: {
+                        bar: {
+                            showInLegend: false 
+                        }
+                    },
+
+                    series: seriesOptions
+                });
+
+                
+                // ###### Chart handlers #######
+                var current_chart = 'All comments';
+
+                var chart = $(target).highcharts();
+
+                // for later. 
+                var org_sub_series = null;
+                var org_sub_categories = null;
+                
+
+                // Inrease button handler 
+                $('#in_button').click(function() {
+                   if (current_chart == 'All comments'){
+                       var count = 0;
+                       
+                       for (var i = 0; i < 10; i++) {
+                            if (size + i >= max) {break;}
+                            count += 1;
+                            chart.series[0].addPoint([
+                                org_categories[i+size], 
+                                org_series[0]['data'][i+size]],
+                                false);
+                        }
+                        size += count;
+                        chart.setTitle({text: current_chart + ' (Size: ' + ' ' + size + ')'});
+                        
+                        chart.redraw();
+                    }
+
+                    else {
+                        var sub_max = Object.size(org_sub_categories);
+                        var count = 0;
+                        for (var i = 0; i < 10; i++) {
+                            if (size + i >= sub_max) {break;}
+                            count += 1;
+                            chart.series[0].addPoint([
+                                org_sub_categories[i+size], 
+                                org_sub_series[i+size]],
+                                false);
+                        }
+                        
+                        size += count;
+                        chart.setTitle({text: current_chart + ' (Size: ' + ' ' + size + ')'});
+                        
+                        chart.redraw();
+
+
+                    }
+                });
+                // Reset button handler. 
+                $('#reset_button').click(function() {
+                    current_chart = 'All comments';
+                    var tmp = jQuery.extend(true, {}, default_series);
+                    chart.xAxis[0].setCategories(default_categories);
+                    chart.series[0].setData(default_series[0]['data']);
+                    size = 10;
+                    chart.setTitle({text: 'All comments (Size: ' + ' ' + size + ')'});
+
+                    
+                    // when the data is reset, default_series becomes the new extended series.
+                    // tmp is required to reset the data to the original. 
+                    default_series = tmp;
+                    
+                });
+
+                // Subreddit filter button handler. 
+                function create_filter_button(target, title, categories, data){
+                    $(target).click(function() {
+                        
+                        org_sub_series = jQuery.extend(true, {}, data);
+                        org_sub_categories = jQuery.extend(true, {}, categories);
+                        categories = categories.slice(0, 10);
+                        data = data.slice(0,10);
+
+                        chart.xAxis[0].setCategories(categories, false);
+                        chart.series[0].setData(data, false);
+
+                        current_chart = title;
+                        size = Object.size(categories);
+                        chart.setTitle({text: title + ' (Size: ' + ' ' + size + ')'});
+
+                        chart.redraw();
+
+                    });
+                }
+
+                // Create subreddit buttons for filter. 
+                var data = JSON.parse(subreddits);
+
+                var sub_filter = data[0]['data'];
+                console.log(sub_filter);
+
+                for (s in sub_filter) {
+                    var target = '#' + s + '_button';
+                    var title = s;
+                    var categories = sub_filter[s][0]; 
+                    var data = sub_filter[s][1];
+
+                    create_filter_button(target, title, categories, data);
+                }
+            }
+            function sub_activity(target, data) {
+                var seriesOptions = JSON.parse(data);
+
+                $(target).highcharts({
+                    chart: {
+                        type: 'pie',
+                        plotBackgroundColor: null,
+                        plotBorderWidth: null,
+                        plotShadow: false,
+                        marginLeft: -10
+                    },
+                    title: {
+                        text: null
+                    },
+                    tooltip: {
+                        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                    },
+                    exporting: {
+                        enabled: true
+                    },
+                    credits: {
+                        enabled: false
+                    },
+                    plotOptions: {
+                        pie: {
+                            allowPointSelect: true,
+                            cursor: 'pointer',
+                            dataLabels: {
+                                enabled: true,
+                                format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                                style: {
+                                    color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                                }
+                            }
+                        }
+                    },
+                    series: seriesOptions
+                });
+            }
+            function half_pie(target, title, data) {
+                var seriesOptions = JSON.parse(data);
+                $(target).highcharts({
+                    chart: {
+                        type: 'pie',
+                        height: 200,
+                        plotBackgroundColor: null,
+                        plotBorderWidth: null,
+                        plotShadow: false,
+                        marginLeft: 0
+                    },
+                    title: {
+                        text: title,
+                        align: 'center',
+                        verticalAlign: 'middle',
+                        y: 60
+                    },
+                    tooltip: {
+                        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                    },
+                    exporting: {
+                         enabled: false
+                    },
+                    credits: {
+                        enabled: false
+                    },
+                    plotOptions: {
+                        pie: {
+                            dataLabels: {
+                                enabled: true,
+                                distance: 10,
+                                style: {
+                                    fontWeight: 'bold',
+                                    color: 'black',
+                                }
+                            },
+                            startAngle: -90,
+                            endAngle: 90,
+                            center: ['50%', '75%'],
+                            innerSize: '50%'
+
+                        }
+                    },
+                    series: seriesOptions
+                });
+            }
+            function yearly_activity(target, data) {
+                var seriesOptions = JSON.parse(data);
+                var org_series = jQuery.extend(true, {}, seriesOptions);
+
+                seriesOptions[0]['data'] = seriesOptions[0]['data'][{{ current_year }}];
+
+                $(target).highcharts({
+                    plotOptions: {
+                        line: {
+                            showInLegend: false
+                        }
+                    },
+                    title: {
+                        text: {{ current_year }}
+                    },
+                    xAxis: {
+                        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                            'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+                    },
+                    yAxis: {
+                        title: {
+                            text: 'Posts'
+                        },
+                        plotLines: [{
+                            value: 0,
+                            width: 1,
+                            color: '#808080'
+                        }]
+                    },
+                    exporting: {
+                        enabled: true
+                    },
+                    credits: {
+                        enabled: false
+                    },
+                    series: seriesOptions
+                });
+
+                var chart = $(target).highcharts();
+
+                function create_filter_button(target, title, data){
+                    $(target).click(function() {
+                        
+                        chart.series[0].setData(data, false);
+                        chart.setTitle({text: title});
+                        chart.redraw();
+                    });
+                }
+
+                var years_filter = org_series[0]['data'];
+                console.log(years_filter);
+
+                for (y in years_filter) {
+                    var target = '#' + y + '_button';
+                    var title = y;
+                    var data = years_filter[y];
+
+                    create_filter_button(target, title, data);
+                }
+            }
+
+            $(document).ready(function() {
+                top_words('#top_chart', '{{ top_chart_series.categories|safe }}','{{ top_chart_series.data|safe }}', '{{ subreddits_series.data|safe }}');
+                sub_activity('#sub_activity', '{{ sub_chart_series.data|safe }}');
+                half_pie('#lang', 'Language Usage', '{{ lang_series.data|safe }}');
+                half_pie('#post_types', 'Post Types', '{{ post_types_series.data|safe }}');
+                yearly_activity('#yearly_activity', '{{ yearly_activity_series.data|safe }}');
+            });
+
+        </script>
+<script src="{{ STATIC_URL }}js/highcharts/highcharts.js"></script>
+<script src="{{ STATIC_URL }}js/modules/exporting.js"></script>
+    </body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <!-- <html class="no-js" --> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="redditAnalysis analyses and beautifully charts reddit user data."> 
+
+        <title>redditAnalysis</title>
+
+        <meta name="description" content="FreshUI is a Premium Web App and Admin Template created by pixelcave and published on Themeforest.">
+        <meta name="author" content="pixelcave">
+        <meta name="robots" content="noindex, nofollow">
+
+        <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0">
+
+        <!-- Stylesheets -->
+        <!-- Bootstrap is included in its original form, unaltered -->
+        <link rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap.css">
+
+        <!-- Related styles of various icon packs and javascript plugins -->
+        <link rel="stylesheet" href="{{ STATIC_URL }}css/plugins.css">
+
+        <!-- The main stylesheet of this template. All Bootstrap overwrites are defined in here -->
+        <link rel="stylesheet" href="{{ STATIC_URL }}css/main.css">
+
+        <!-- Include a specific file here from css/themes/ folder to alter the default theme of the template -->
+
+        <!-- The themes stylesheet of this template (for using specific theme color in individual elements - must included last) -->
+        <link rel="stylesheet" href="{{ STATIC_URL }}css/themes.css">
+        <!-- END Stylesheets -->
+
+        <!-- Modernizr (Browser feature detection library) & Respond.js (Enable responsive CSS code on browsers that don't support it, eg IE8) -->
+        <script src="{{ STATIC_URL }}js/vendor/modernizr-2.7.1-respond-1.4.2.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script src="http://fgnass.github.io/spin.js/spin.min.js"></script>
+        <script src="http://fgnass.github.io/spin.js/spin.js"></script>
+        <script type="text/javascript">
+            $(function () {
+                var opts = {
+                  lines: 13, // The number of lines to draw
+                  length: 20, // The length of each line
+                  width: 2, // The line thickness
+                  radius: 30, // The radius of the inner circle
+                  corners: 1, // Corner roundness (0..1)
+                  rotate: 0, // The rotation offset
+                  direction: 1, // 1: clockwise, -1: counterclockwise
+                  color: '#F39C12', // #rgb or #rrggbb or array of colors
+                  speed: 1, // Rounds per second
+                  trail: 60, // Afterglow percentage
+                  shadow: false, // Whether to render a shadow
+                  hwaccel: false, // Whether to use hardware acceleration
+                  className: 'spinner', // The CSS class to assign to the spinner
+                  zIndex: 2e9, // The z-index (defaults to 2000000000)
+                  top: '50%', // Top position relative to parent
+                  left: '50%' // Left position relative to parent
+                };
+                var target = document.getElementById('loading');
+                var spinner = new Spinner(opts).spin(target);
+            });
+        </script>
+    </head>
+
+<body class="header-fixed-top">
+    <div id="page-container">
+        <header class="navbar navbar-fixed-top">
+            <ul class="nav header-nav pull-right">
+                    <li>
+                        <a href="/">
+                            <i class="gi gi-home"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/info">
+                            <i class="gi gi-circle_info"></i>
+                        </a>
+                    </li>
+                </ul>
+        </header>
+
+        <div class="search-block">
+        	<form method="post">
+        		{% csrf_token %}
+                {% if error %}
+        		    <div id="form-wrapper" style="width:800px; margin:0 auto; text-align:center; vertical-align:middle" class="input-group has-error">
+                    <input type="text" id="search-term" name="user" class="form-control" placeholder="Redditor does not exist!"> 
+                {% else %}
+                <div id="form-wrapper" style="width:800px; margin:0 auto; text-align:center; vertical-align:middle" class="input-group">
+                    <input type="text" id="search-term" name="user" class="form-control" placeholder="Search redditor to analyze"> 
+                    {% endif %}
+                       	<span class="input-group-btn">
+                           <button onclick="$('#loading').show();" type="submit" class="btn btn-primary"><i class="fa fa-arrow-right"></i> Search </button>
+                        </span>
+               </div>
+               <div style="display:none;" id="loading" class="spinner"></div>
+	      
+            </form>
+        </div>
+    </div>
+
+</body>
+<script src="{{ STATIC_URL }}js/vendor/bootstrap.min.js"></script>
+</html>
+
+

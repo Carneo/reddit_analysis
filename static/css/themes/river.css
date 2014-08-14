@@ -1,0 +1,242 @@
+/*
+ *  Document   : river.css
+ *  Author     : pixelcave
+ *  Description: THEME RIVER
+ *
+ */
+
+a,
+a:hover,
+a:focus,
+.text-primary,
+.text-primary:hover,
+a.list-group-item.active > .badge,
+.nav-pills > .active > a > .badge,
+.btn-link,
+.btn-link:hover,
+.btn-link:focus,
+.btn-link.btn-icon:hover,
+.btn-link.btn-icon:focus,
+.themed-color,
+.pagination > li > a,
+.pagination > li > span,
+.pagination > li > a:hover,
+.pagination > li > span:hover,
+.pagination > li > a:focus,
+.pagination > li > span:focus {
+    color: #4da2db;
+}
+
+.sidebar-nav li a.open,
+.sidebar-nav li.active > a,
+.sidebar-nav li a.open:hover,
+.sidebar-nav li.active > a:hover,
+.sidebar-nav li ul,
+a.header-link,
+a.header-title-link,
+.header-section,
+.gallery a:hover img,
+.gallery-image:hover img,
+a[data-toggle="lightbox-image"]:hover img,
+.timeline li.alt-color .timeline-item,
+.timeline li.alt-color.text-right .timeline-item,
+a.list-group-item.active,
+a.list-group-item.active:hover,
+a.list-group-item.active:focus,
+.pagination > .active > a,
+.pagination > .active > span,
+.pagination > .active > a:hover,
+.pagination > .active > span:hover,
+.pagination > .active > a:focus,
+.pagination > .active > span:focus,
+a.thumbnail:hover,
+a.thumbnail:focus,
+.fc-event,
+div.tagsinput span.tag,
+.themed-border,
+.switch-primary span {
+    border-color: #4da2db;
+}
+
+header.navbar .navbar-brand:hover,
+header.navbar .navbar-brand:focus,
+.nav.header-nav > li.active > a,
+.nav.header-nav > li.open > a,
+.sidebar-nav li a.active,
+.sidebar-nav li > ul a.active:hover,
+.sidebar-nav li ul a.active,
+.sidebar-nav li ul a.active:hover,
+.block-title .nav-tabs > li > a:hover,
+#to-top:hover,
+.ms-categories .nav > li > a:focus,
+.ms-categories .nav > li > a:active,
+.ms-categories .nav > li.active a,
+.ms-categories .nav > li.active a:hover,
+.table-pricing.table-featured th,
+.table-pricing th.table-featured,
+a.list-group-item.active,
+a.list-group-item.active:hover,
+a.list-group-item.active:focus,
+.nav-pills > li.active > a,
+.nav-pills > li.active > a:hover,
+.nav-pills > li.active > a:focus,
+.dropdown-menu > li > a:hover,
+.dropdown-menu > li > a:focus,
+.dropdown-menu > .active > a,
+.dropdown-menu > .active > a:hover,
+.dropdown-menu > .active > a:focus,
+.nav .open > a,
+.nav .open > a:hover,
+.nav .open > a:focus,
+.pagination > .active > a,
+.pagination > .active > span,
+.pagination > .active > a:hover,
+.pagination > .active > span:hover,
+.pagination > .active > a:focus,
+.pagination > .active > span:focus,
+.label-primary,
+.wizard-steps .row > div.done,
+.wizard-steps .row > div.active,
+.fc-cell-overlay,
+.fc-state-default,
+.fc-state-disabled,
+.fc-event,
+.chosen-container .chosen-results li.highlighted,
+.datepicker table tr td.active,
+.datepicker table tr td.active:hover,
+.datepicker table tr td.active.disabled,
+.datepicker table tr td.active.disabled:hover,
+.datepicker table tr td.active:hover,
+.datepicker table tr td.active:hover:hover,
+.datepicker table tr td.active.disabled:hover,
+.datepicker table tr td.active.disabled:hover:hover,
+.datepicker table tr td.active:active,
+.datepicker table tr td.active:hover:active,
+.datepicker table tr td.active.disabled:active,
+.datepicker table tr td.active.disabled:hover:active,
+.datepicker table tr td.active.active,
+.datepicker table tr td.active:hover.active,
+.datepicker table tr td.active.disabled.active,
+.datepicker table tr td.active.disabled:hover.active,
+.datepicker table tr td.active.disabled,
+.datepicker table tr td.active:hover.disabled,
+.datepicker table tr td.active.disabled.disabled,
+.datepicker table tr td.active.disabled:hover.disabled,
+.datepicker table tr td.active[disabled],
+.datepicker table tr td.active:hover[disabled],
+.datepicker table tr td.active.disabled[disabled],
+.datepicker table tr td.active.disabled:hover[disabled],
+.datepicker table tr td span.active:hover,
+.datepicker table tr td span.active:hover:hover,
+.datepicker table tr td span.active.disabled:hover,
+.datepicker table tr td span.active.disabled:hover:hover,
+.datepicker table tr td span.active:active,
+.datepicker table tr td span.active:hover:active,
+.datepicker table tr td span.active.disabled:active,
+.datepicker table tr td span.active.disabled:hover:active,
+.datepicker table tr td span.active.active,
+.datepicker table tr td span.active:hover.active,
+.datepicker table tr td span.active.disabled.active,
+.datepicker table tr td span.active.disabled:hover.active,
+.datepicker table tr td span.active.disabled,
+.datepicker table tr td span.active:hover.disabled,
+.datepicker table tr td span.active.disabled.disabled,
+.datepicker table tr td span.active.disabled:hover.disabled,
+.datepicker table tr td span.active[disabled],
+.datepicker table tr td span.active:hover[disabled],
+.datepicker table tr td span.active.disabled[disabled],
+.datepicker table tr td span.active.disabled:hover[disabled],
+.bootstrap-timepicker-widget table td a:hover,
+.themed-background,
+.switch-primary input:checked + span,
+.slider-selection,
+.select2-results .select2-highlighted,
+.select2-container-multi .select2-choices .select2-search-choice {
+    background-color: #4da2db;
+}
+
+#page-content + footer {
+    border-bottom-color: #4da2db;
+}
+
+.nav .caret,
+.nav a:hover .caret,
+.nav a:focus .caret {
+    border-top-color: #4da2db;
+    border-bottom-color: #4da2db;
+}
+
+/* Brighter color for the header links top border on hover */
+a.header-link:hover,
+a.header-title-link:hover {
+    border-top-color: #50aae5;
+}
+
+/* Brighter color for primary labels on hover */
+.label-primary[href]:hover,
+.label-primary[href]:focus {
+    background-color: #50aae5;
+}
+
+/* Lighter color for the timeline item title */
+.timeline li.alt-color .timeline-title {
+    background-color: #9ac1db;
+}
+
+/* Lighter color for table hover, calendar overlay and tags input */
+.table-hover > tbody > tr:hover > td,
+.table-hover > tbody > tr:hover > th,
+.fc-state-highlight,
+div.tagsinput span.tag {
+    background-color: #e5f5ff;
+}
+
+/* Primary Button */
+.btn-primary,
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary.active,
+.open .dropdown-toggle.btn-primary,
+.btn-primary.disabled,
+.btn-primary[disabled],
+fieldset[disabled] .btn-primary,
+.btn-primary.disabled:hover,
+.btn-primary[disabled]:hover,
+fieldset[disabled] .btn-primary:hover,
+.btn-primary.disabled:focus,
+.btn-primary[disabled]:focus,
+fieldset[disabled] .btn-primary:focus,
+.btn-primary.disabled:active,
+.btn-primary[disabled]:active,
+fieldset[disabled] .btn-primary:active,
+.btn-primary.disabled.active,
+.btn-primary[disabled].active,
+fieldset[disabled] .btn-primary.active,
+.fc-state-default {
+    background-color: #4da2db;
+    /* Darker Color for border and box shadow */
+    border-color: #006bb3;
+    -webkit-box-shadow: 0 1px 0 #006bb3;
+    box-shadow: 0 1px 0 #006bb3;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary.active,
+.open .dropdown-toggle.btn-primary,
+.fc-state-hover,
+.fc-state-down,
+.fc-state-active,
+.fc-state-disabled,
+.fc-state-down,
+.fc-state-active {
+    background-color: #6eafdb;
+}
+
+.btn-primary:active,
+.btn-primary.active,
+.open .dropdown-toggle.btn-primary {
+    background-color: #a1cae5;
+}
