@@ -19,8 +19,7 @@ class IndexView(View):
         
     def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST)
-        username = request.POST.get('user')
-        username = username.lstrip().strip()
+        username = request.POST.get('user').lstrip().strip()
         error_message = "User does not exist"
         r_user = self.user_found(username)
         # progress = r_user.result or r_user.state 
