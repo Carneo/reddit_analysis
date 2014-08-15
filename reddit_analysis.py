@@ -70,7 +70,7 @@ class R_User(object):
             self.word_count[0] += len(body)
             self.comments[c_count] = c
             
-	    # Trying to figure out how I could add a progress message to the index page. Anyone know how to do it? 
+        # Trying to figure out how I could add a progress message to the index page. Anyone know how to do it? 
 
             # Update amount of data collected. 
             # current_task.update_state(state='PROGRESS', meta={'current': c_count})
@@ -170,8 +170,8 @@ class User_Analysis(R_User):
         avg_karma_p_comment
         subreddit_activity
         yearly_posting_activity
-	post_types
-	top_posts_by_subreddit
+    post_types
+    top_posts_by_subreddit
     """
     def __init__(self, username):
         R_User.__init__(self, username)
@@ -333,7 +333,7 @@ class User_Analysis(R_User):
         
     def top_words_by_subreddits(self):
         d = {s: self.top_words(size='max', subreddit_filter=s) for s in self.get_subreddits()}    
-        return d 
+        return self.collections_sort(d, key=0, reverse=False)
     # Curently unused functions.  
     # Requires selected R_User to allow voting history. 
     # def liked_content(self, raw=False):
