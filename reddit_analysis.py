@@ -33,8 +33,8 @@ class R_User(object):
         self.comments = dict() # {count: comment}
         self.word_count = [0,0] # 0=total; 1=words that were checked off. 
         self.unique_words = 0
-        self.best_comment = [1, None]
-        self.worst_comment = [1, None]
+        self.best_comment = [0, None]
+        self.worst_comment = [0, None]
         self.comment_karma = self.user.comment_karma 
         self.submission_karma = self.user.link_karma 
         self.karma = self.submission_karma + self.comment_karma
