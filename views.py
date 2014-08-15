@@ -9,7 +9,9 @@ from django.shortcuts import render_to_response
 # from celery.result import AsyncResult
 import simplejson
 
-
+###### 
+######
+##### REMEMBER MOST OF YOUR STATIC STUFF IS FOR DEVELOPMENT ONLY. FIX 
 class IndexView(View):
     template_name = 'reddit_analysis/index.html'
     form_class = SearchForm
@@ -169,13 +171,10 @@ class IndexView(View):
 
 
         series = {'data': self.dumps([{'data': data, 'name': 'Word Occurence'}])}
-
-        print series 
         return series 
 
     def lang_series(self, data):
-       d = [list((k, v)) for k,v in data.items() if k != 'swedish' and v > 5] 
-       # quick fix for swedish language bug. Sorry Sweeds... If anyone knows how to do a better job with the language checker, feel free to pm me. 
+       d = [list((k, v)) for k,v in data.items() if k != 'swedish' and v > 5] # quick fix for swedish language bug. Sorry Sweeds...
 
        return {'data': self.dumps([{'name': 'Usage amongst comments', 'data': d}])}
 
