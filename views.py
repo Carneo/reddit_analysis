@@ -9,9 +9,7 @@ from django.shortcuts import render_to_response
 # from celery.result import AsyncResult
 import simplejson
 
-###### 
-######
-##### REMEMBER MOST OF YOUR STATIC STUFF IS FOR DEVELOPMENT ONLY. FIX 
+
 class IndexView(View):
     template_name = 'reddit_analysis/index.html'
     form_class = SearchForm
