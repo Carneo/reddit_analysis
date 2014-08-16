@@ -86,6 +86,7 @@ class IndexView(View):
         post_types_series = self.pie_series('Type share', post_types,)
         lang_series = self.lang_series(lang)
         yearly_activity_series = self.yearly_series(yearly_activity)
+        all_yearly_series = self.all_yearly_series(yearly_activity)
         subreddits_series = self.subreddit_series(subreddits_filter)
 
         # try: 
@@ -128,7 +129,8 @@ class IndexView(View):
                     'subreddits': subreddits,
                     'acc_created': acc_created,
                     'subreddits_series': subreddits_series,
-                    'current_year': current_year
+                    'current_year': current_year,
+                    'all_yearly_series': all_yearly_series
                     })
 
     def user_in_db(self, user):
@@ -182,7 +184,10 @@ class IndexView(View):
 
     def yearly_series(self, data):
         return {'data': self.dumps([{'name': 'Posts', 'data': data}])}
-       
+    
+    def all_yearly_series(self, data):
+        return {'data': self.dumps([{'name': s, 'data': d} for s,d in data.items()])}
+
     def dumps(self, obj):
         return simplejson.dumps(obj)
         
