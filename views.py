@@ -130,7 +130,7 @@ class IndexView(View):
                     'acc_created': acc_created,
                     'subreddits_series': subreddits_series,
                     'current_year': current_year,
-                    'all_yearly_series': all_yearly_series
+                    #'all_yearly_series': all_yearly_series
                     })
 
     def user_in_db(self, user):
