@@ -26,7 +26,7 @@ class R_User(object):
     """ Reddit user object, initialized with basic data. """
     
     # @task()
-    def __init__(self, user_name, comment=None):
+    def __init__(self, user_name):
         self.user = r.get_redditor(user_name)
         self.username = self.user.name
         self.posts = {i: p for i,p in enumerate(self.user.get_submitted())}
