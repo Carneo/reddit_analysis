@@ -4,13 +4,10 @@
     <head>
         <meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta name="description" content="redditAnalysis analyses and beautifully charts reddit user data."> 
-
+	<meta name="description" content="redditAnalysis is an interactive reddit analysis tool that visualizes reddit user data such as top comments and subreddit activity."> 
+	<meta name="google-site-verification" content="GgCyj3ANREQCHY8RguSboKvXq0DP8ypUl5wrE9GzCLg" />
         <title>redditAnalysis</title>
-
-        <meta name="description" content="FreshUI is a Premium Web App and Admin Template created by pixelcave and published on Themeforest.">
-        <meta name="author" content="pixelcave">
-        <meta name="robots" content="noindex, nofollow">
+   
 
         <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0">
 
@@ -86,7 +83,7 @@
                     <input type="text" id="search-term" name="user" class="form-control" placeholder="Redditor does not exist!"> 
                 {% else %}
                 <div id="form-wrapper" style="width:800px; margin:0 auto; text-align:center; vertical-align:middle" class="input-group">
-                    <input type="text" id="search-term" name="user" class="form-control" placeholder="Search redditor to analyze"> 
+                    <input type="text" id="search-term" name="user" class="form-control" placeholder="Search redditor to analyze."> 
                     {% endif %}
                        	<span class="input-group-btn">
                            <button onclick="$('#loading').show();" type="submit" class="btn btn-primary"><i class="fa fa-arrow-right"></i> Search </button>
@@ -100,6 +97,16 @@
 
 </body>
 <script src="{{ STATIC_URL }}js/vendor/bootstrap.min.js"></script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-53412514-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
 </html>
 
 
