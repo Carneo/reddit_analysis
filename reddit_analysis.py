@@ -26,7 +26,7 @@ class R_User(object):
     """ Reddit user object, initialized with basic data. """
     
     # @task()
-    def __init__(self, user_name):
+    def __init__(self, user_name, comment=None):
         self.user = r.get_redditor(user_name)
         self.username = self.user.name
         self.posts = {i: p for i,p in enumerate(self.user.get_submitted())}
@@ -125,11 +125,12 @@ class R_User(object):
         return self.get_subreddit_activity().keys()
         
     def get_subreddit_activity(self):
-        self.add_to_sub()
+        self.add_to_sub(self.get_posts())
+        self.add_to_sub(self.get_comments())
         return self.sub_activity
     
     def get_subreddits(self):
-            return self.get_subreddit_activity().keys()    
+        return self.get_subreddit_activity().keys()    
     
     def get_stop_count(self):
         return self.word_count[1]
@@ -144,11 +145,9 @@ class R_User(object):
     def add_to_stop_count(self):
         self.word_count[1] +=1 
         
-    def add_to_sub(self):
-        for c in self.get_comments():
-            self.add_subreddit(c)
-        #for p in self.get_posts():
-            #self.add_subreddit(c)   
+    def add_to_sub(self, items):
+        for i in items:
+            self.add_subreddit(i)
                 
     def add_subreddit(self, content):
         name = content.subreddit.display_name 
