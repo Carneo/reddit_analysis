@@ -29,14 +29,26 @@ class R_User(object):
     def __init__(self, user_name, comment=None):
         self.user = r.get_redditor(user_name)
         self.username = self.user.name
-        self.posts = {i: p for i,p in enumerate(self.user.get_submitted())}
+        
+        # Important stuff 
+        self.posts = dict() # {count: post}  
         self.comments = dict() # {count: comment}
+
+        # Word data
         self.word_count = [0,0] # 0=total; 1=words that were checked off. 
         self.unique_words = 0
-        self.best_comment = [0, None]
+
+        # Comments 
+        self.best_comment = [0, None] # score, comment 
         self.worst_comment = [0, None]
         self.comment_karma = self.user.comment_karma 
+
+        # Submissions 
+        self.best_post = [0, None]
+        self.worst_post = [0, None]
         self.submission_karma = self.user.link_karma 
+
+        # Other 
         self.karma = self.submission_karma + self.comment_karma
         self.sub_activity = dict()    
         self.lang_usage = {'portuguese': 0,
@@ -54,28 +66,46 @@ class R_User(object):
                                'turkish': 0, 
                                'italian': 0}
         
+        def _best_worst(best, worst, score, data):
+            """ Best and worst are either a comment or post, but must be the same unless you want bad data.
+            """ 
+            if score < worst[0]:
+                worst[0], worst[1] = score, data 
+            if score > best[0]:
+                best[0], best[1] = score, data 
         # Store comments so it's quicker to access.
         c_count = 0
         for c in self.user.get_comments(self, limit=None):
-            c_count += 1 
-            if self.worst_comment[1] is None:
-                self.worst_comment[0], self.worst_comment[1], c.score, c 
-            if c.score < self.worst_comment[0]:
-                self.worst_comment[0] , self.worst_comment[1] = c.score,c
-            if c.score > self.best_comment[0]:
-                self.best_comment[0] , self.best_comment[1] = c.score,c
+            c_count += 1
+            # First comment is default. 
+            if c_count == 1: 
+                self.worst_comment = [c, c.score] 
+            _best_worst(self.best_comment, 
+                        self.worst_comment,
+                        c.score,
+                        c) 
+        
             body = c.body
             lang = get_language(body)
             self.lang_usage[lang] += 1
             self.word_count[0] += len(body)
             self.comments[c_count] = c
-            
-        # Trying to figure out how I could add a progress message to the index page. Anyone know how to do it? 
 
-            # Update amount of data collected. 
-            # current_task.update_state(state='PROGRESS', meta={'current': c_count})
-            # logger = get_task_logger(__name__)
-            # logger.info('Loaded %s pieces of data' % c_count)
+
+        # Best and worst posts 
+        s_count = 0
+        for s in self.user.get_submitted(self, limit=None):
+            s_count += 1
+            if s_count == 1: 
+                self.worst_post = [s, s.score]
+
+            _best_worst(self.best_post, 
+                        self.worst_post, 
+                        s.score,
+                        s)
+            self.posts[s_count] = s
+
+
             
     def __str__(self):
         return "User: %s" % self.username
@@ -165,12 +195,13 @@ class User_Analysis(R_User):
         liked/disliked_content
         get_earliest_comment
         get_best_comment
+        get_worst_comment
         avg_comment_length
         avg_karma_p_comment
         subreddit_activity
         yearly_posting_activity
-    post_types
-    top_posts_by_subreddit
+        post_types  
+        top_posts_by_subreddit
     """
     def __init__(self, username):
         R_User.__init__(self, username)
@@ -311,6 +342,12 @@ class User_Analysis(R_User):
     def get_worst_comment(self):
         return self.worst_comment[0], self.check_if_none(self.worst_comment[1])
 
+    def get_best_post(self):
+        return self.best_post[0], self.check_if_none(self.best_post[1])
+
+    def get_worst_post(self):
+        return self.worst_post[0], self.check_if_none(self.worst_post[1])
+
     def percent_edited(self):
         count = sum([1 for c in self.get_comments() if c.edited])
         return round(self.check_mod_by_zero(float(count), self.comment_count()) * 100, 2)
@@ -333,6 +370,14 @@ class User_Analysis(R_User):
     def top_words_by_subreddits(self):
         d = {s: self.top_words(size='max', subreddit_filter=s) for s in self.get_subreddits()}    
         return self.collections_sort(d, key=0, reverse=False)
+
+ 
+
+    def random_quote(self): 
+        pass
+	# get random number n 
+	# get the nth comment 
+        # if the body is large. scale down, find punctuation. 
     # Curently unused functions.  
     # Requires selected R_User to allow voting history. 
     # def liked_content(self, raw=False):
@@ -348,6 +393,9 @@ class User_Analysis(R_User):
     #### #### #### #### HELP FUNCTIONS #### #### #### #### #### #### 
     def check_if_none(self, o):
         if isinstance(o, praw.objects.Comment):
+            return o.permalink
+
+        if isinstance(o, praw.objects.Submission):
             return o.permalink
 
     def check_mod_by_zero(self, int1, int2):
