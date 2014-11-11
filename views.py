@@ -51,12 +51,21 @@ class IndexView(View):
         post_count = r_user.post_count()
         karma_p_p = r_user.avg_karma_p_post()
 
-        get_b = r_user.get_best_comment()
-        karma_best = get_b[0]
-        best = get_b[1]
-        get_w = r_user.get_worst_comment()
-        karma_worst = get_w[0]
-        worst = get_w[1]
+        # Best and worst comments 
+        get_bc = r_user.get_best_comment()
+        karma_bestc = get_bc[0]
+        bestc = get_bc[1]
+        get_wc = r_user.get_worst_comment()
+        karma_worstc = get_wc[0]
+        worstc = get_wc[1]
+
+        # Best and worst posts 
+        get_bp = r_user.get_best_post()
+        karma_bestp = get_bp[0]
+        bestp = get_bp[1]
+        get_wp = r_user.get_worst_post()
+        karma_worstp = get_wp[0]
+        worstp = get_wp[1]
        
         acc_created = r_user.account_created()
         karma = r_user.get_karma()
@@ -111,20 +120,24 @@ class IndexView(View):
                     'comment_length': comment_length,
                     'comment_count': comment_count,
                     'post_count': post_count,
-                    'best': best,
+                    'bestc': bestc,
+                    'bestp': bestp,
                     'first_comment': first_comment,
                     'karma': karma,
                     'comment_karma': comment_karma,
                     'submission_karma': submission_karma,
                     'karma_p': karma_p,
                     'karma_p_p': karma_p_p,
-                    'karma_best': karma_best,
+                    'karma_bestc': karma_bestc,
+                    'karma_bestp': karma_bestp,
                     'date': date,
                     'years': years,
                     'yearly_activity_series': yearly_activity_series,
                     'sub_rec': sub_rec,
-                    'karma_worst': karma_worst,
-                    'worst': worst,
+                    'karma_worstc': karma_worstc,
+                    'karma_worstp': karma_worstp,
+                    'worstc': worstc,
+                    'worstp': worstp,
                     'post_types_series': post_types_series,
                     'subreddits': subreddits,
                     'acc_created': acc_created,
