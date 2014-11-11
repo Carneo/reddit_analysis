@@ -370,14 +370,7 @@ class User_Analysis(R_User):
     def top_words_by_subreddits(self):
         d = {s: self.top_words(size='max', subreddit_filter=s) for s in self.get_subreddits()}    
         return self.collections_sort(d, key=0, reverse=False)
-
- 
-
-    def random_quote(self): 
-        pass
-	# get random number n 
-	# get the nth comment 
-        # if the body is large. scale down, find punctuation. 
+        
     # Curently unused functions.  
     # Requires selected R_User to allow voting history. 
     # def liked_content(self, raw=False):
